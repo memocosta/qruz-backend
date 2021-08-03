@@ -1,0 +1,31 @@
+input CreateVehicleInput {
+  license_plate: String! @rules(apply: ["required", "unique:vehicles,license_plate"])
+  license_expires_on: Date! @rules(apply: ["required"])
+  car_type_id: ID! @rules(apply: ["required"])
+  car_make_id: ID! @rules(apply: ["required"])
+  car_model_id: ID! @rules(apply: ["required"])
+  year: String! @rules(apply: ["required", "min:4", "max:4"])
+  photo: Upload
+}
+
+input UpdateVehicleInput {
+  id: ID! @rules(apply: ["required"])
+  license_plate: String
+  license_expires_on: Date
+  car_type_id: ID
+  car_make_id: ID
+  car_model_id: ID
+  year: String @rules(apply: ["min:4", "max:4"])
+  photo: Upload
+}
+
+type Vehicle {
+  id: ID
+  license_plate: String
+  license_expires_on: Date
+  type: CarType @belongsTo
+  make: CarMake @belongsTo
+  model: CarModel @belongsTo
+  year: String
+  photo: String
+}

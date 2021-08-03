@@ -1,0 +1,37 @@
+input CreatePartnerTripUserInput {
+  trip_id: ID! @rules(apply: ["required"])
+  user_id: [ID!]! @rules(apply: ["required"])
+  subscription_code: String! @rules(apply: ["required"])
+}
+
+input DeletePartnerTripUserInput {
+  trip_id: ID! @rules(apply: ["required"])
+  user_id: [ID!]! @rules(apply: ["required"])
+} 
+
+input ConfirmPartnerTripUserInput {
+  user_id: ID! @rules(apply: ["required"])
+  subscription_code: String! @rules(apply: ["required"])
+}
+
+input GetPartnerTripUsersInput {
+  partner_id: ID! @rules(apply: ["required"])
+  trip_id: ID! @rules(apply: ["required"])
+  status: String! @rules(apply: ["required", "in:subscribed,notSubscribed,notVerified"])
+}
+
+input CreatePartnerTripStationUserInput {
+  trip_id: ID! @rules(apply: ["required"])
+  station_id: ID! @rules(apply: ["required"])
+  user_id: ID! @rules(apply: ["required"])
+}
+ 
+input DeletePartnerTripStationUserInput {
+  station_id: ID! @rules(apply: ["required"])
+  user_id: ID! @rules(apply: ["required"])
+}
+
+type PartnerTripUserResponse {
+  status: Boolean!
+  message: String
+}

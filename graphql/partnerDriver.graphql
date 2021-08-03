@@ -1,0 +1,15 @@
+input PartnerDriverInput {
+  partner_id: ID! @rules(apply: ["required"])
+  driver_id: [ID!]! @rules(apply: ["required"])
+}
+
+type PartnerDriverResponse {
+  status: Boolean!
+  message: String
+}
+
+type PartnerDriver {
+  id: ID
+  partner_id: ID
+  driver_id: ID
+}

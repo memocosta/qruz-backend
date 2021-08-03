@@ -1,0 +1,41 @@
+input CreatePartnerTripStationInput {
+  name: String
+  latitude: String! @rules(apply: ["required"])
+  longitude: String! @rules(apply: ["required"])
+  trip_id: ID! @rules(apply: ["required"])
+  state: String
+  created_by: ID
+  accepted_at: DateTime
+}
+
+input UpdatePartnerTripStationInput {
+  id: ID! @rules(apply: ["required"])
+  name: String
+  latitude: String
+  longitude: String
+  state: String
+  accepted_at: DateTime
+  time_from_start: String
+}
+
+input GetPartnerTripStationsInput {
+  trip_id: ID! @rules(apply: ["required"])
+  status: String! @rules(apply: ["required", "in:accepted,notAccepted"])
+}
+
+input AcceptPartnerTripStationInput {
+  trip_id: ID! @rules(apply: ["required"])
+  station_id: ID! @rules(apply: ["required"])
+}
+
+type PartnerTripStation {
+  id: ID
+  name: String
+  latitude: String
+  longitude: String
+  created_by: User @belongsTo
+  accepted_at: DateTime
+  state: String
+  time_from_start: String
+  users: [User] @belongsToMany
+}

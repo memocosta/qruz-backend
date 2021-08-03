@@ -1,0 +1,54 @@
+input CreatePartnerInput {
+  name: String! @rules(apply: ["required"])
+  email: String! @rules(apply: ["email", "unique:partners,email"])
+  password: String! @rules(apply: ["required","min:8"]) @bcrypt
+  type: String
+  phone1: String
+  phone2: String
+  logo: Upload
+  size: String @rules(apply: ["in:Small,Medium,Large,Enterprise"])
+  license_expires_on: Date
+  insurance_expires_on: Date
+  max_no_of_trips: Int
+}
+
+input UpdatePartnerInput {
+  id: ID! @rules(apply: ["required"])
+  name: String
+  email: String
+  type: String
+  phone1: String
+  phone2: String
+  logo: Upload
+  size: String @rules(apply: ["in:Small,Medium,Large,Enterprise"])
+  license_expires_on: Date
+  insurance_expires_on: Date
+  max_no_of_trips: Int
+}
+
+input PartnerLoginInput {
+  email: String!
+  password: String!
+}
+
+type PartnerAuthPayload {
+  access_token: String
+  partner: Partner
+}
+
+type Partner {
+  id: ID
+  name: String
+  email: String
+  type: String
+  phone1: String
+  phone2: String
+  logo: String
+  size: String 
+  license_expires_on: Date
+  insurance_expires_on: Date
+  max_no_of_trips: Int
+  users: [User] @hasMany
+  drivers: [Driver] @belongsToMany
+  trips: [PartnerTrip] @hasMany
+}
